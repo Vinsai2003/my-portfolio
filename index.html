@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NERELLA VINSAI • MERN Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --accent: 34 211 238;
+        }
+        
+        .tail-container {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .logo-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .hero-bg {
+            background: radial-gradient(at center bottom, rgb(34 211 238 / 0.15), transparent 70%);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: rgb(34 211 238);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+
+        .project-card {
+            transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+        }
+
+        .skill-bar {
+            height: 4px;
+            background: linear-gradient(90deg, rgb(34 211 238), rgb(165 243 252));
+            transition: width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .section-header {
+            position: relative;
+        }
+        
+        .section-header:after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background: rgb(34 211 238);
+            bottom: -8px;
+            left: 0;
+            border-radius: 9999px;
+        }
+
+        .terminal {
+            font-family: ui-monospace, monospace;
+            background: #0a0a0a;
+        }
+
+        .glow-cyan {
+            filter: drop-shadow(0 0 15px rgb(34 211 238));
+        }
+    </style>
+</head>
+<body class="tail-container bg-zinc-950 text-zinc-200 overflow-x-hidden">
+    <!-- NAVBAR -->
+    <nav id="navbar" class="bg-zinc-950 border-b border-zinc-800 fixed w-full z-50">
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="px-8 py-5 flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex items-center gap-x-3">
+                    <div class="w-8 h-8 bg-cyan-400 rounded-2xl flex items-center justify-center text-zinc-950 font-bold text-xl logo-font">NV</div>
+                    <div>
+                        <span class="logo-font text-2xl font-semibold tracking-tighter">NERELLA VINSAI</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                    <a href="#about" onclick="navigateToSection('about')" class="nav-link text-zinc-300 hover:text-white">About</a>
+                    <a href="#skills" onclick="navigateToSection('skills')" class="nav-link text-zinc-300 hover:text-white">Skills</a>
+                    <a href="#projects" onclick="navigateToSection('projects')" class="nav-link text-zinc-300 hover:text-white">Projects</a>
+                    <a href="#experience" onclick="navigateToSection('experience')" class="nav-link text-zinc-300 hover:text-white">Experience</a>
+                    <a href="#contact" onclick="navigateToSection('contact')" class="nav-link text-zinc-300 hover:text-white">Contact</a>
+                </div>
+                
+                <div class="flex items-center gap-x-4">
+                    <a href="VINSAI-RESUME.pdf" 
+                       onclick="downloadResume()"
+                       class="hidden sm:flex items-center gap-x-2 px-5 py-2.5 text-sm font-semibold border border-zinc-700 hover:border-cyan-400 rounded-3xl transition-colors">
+                        <i class="fa-solid fa-download text-xs"></i>
+                        <span>Resume</span>
+                    </a>
+                    
+                    <button onclick="toggleMobileMenu()" 
+                            class="md:hidden w-11 h-11 flex items-center justify-center text-2xl">
+                        <i id="menu-icon" class="fa-solid fa-bars"></i>
+                    </button>
+                    
+                    <button onclick="openContactModal()"
+                            class="px-6 py-3 bg-white text-zinc-900 hover:bg-cyan-300 transition-all rounded-3xl text-sm font-semibold flex items-center gap-x-2">
+                        <span>Let's build</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- MOBILE MENU -->
+        <div id="mobile-menu" class="hidden md:hidden bg-zinc-900 border-t border-zinc-800 py-6">
+            <div class="px-8 flex flex-col gap-y-6 text-lg">
+                <a href="#about" onclick="navigateToSection('about');toggleMobileMenu()" class="py-2 text-zinc-300 hover:text-cyan-400">About</a>
+                <a href="#skills" onclick="navigateToSection('skills');toggleMobileMenu()" class="py-2 text-zinc-300 hover:text-cyan-400">Skills</a>
+                <a href="#projects" onclick="navigateToSection('projects');toggleMobileMenu()" class="py-2 text-zinc-300 hover:text-cyan-400">Projects</a>
+                <a href="#experience" onclick="navigateToSection('experience');toggleMobileMenu()" class="py-2 text-zinc-300 hover:text-cyan-400">Experience</a>
+                <a href="#contact" onclick="navigateToSection('contact');toggleMobileMenu()" class="py-2 text-zinc-300 hover:text-cyan-400">Contact</a>
+                
+                <div class="pt-6 border-t border-zinc-700">
+                    <button onclick="downloadResume();toggleMobileMenu()" 
+                            class="w-full py-4 bg-zinc-800 hover:bg-zinc-700 transition-colors rounded-3xl text-sm font-medium flex items-center justify-center gap-x-3">
+                        <i class="fa-solid fa-download"></i>
+                        <span>DOWNLOAD RESUME</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero-bg min-h-screen flex items-center pt-16">
+        <div class="max-w-screen-2xl mx-auto px-8 grid md:grid-cols-12 gap-12 items-center">
+            <!-- Left content -->
+            <div class="md:col-span-7 pt-12 md:pt-0">
+                <div class="inline-flex items-center gap-x-2 bg-zinc-900 border border-zinc-700 text-cyan-300 text-xs font-medium px-5 h-8 rounded-3xl mb-6">
+                    <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                LOOKING FOR OPPORTUNITY IN FULLSTACK DEVELOPMENT
+                </div>
+                
+                <h1 class="text-6xl md:text-7xl font-semibold leading-none tracking-tighter logo-font">
+                    NERELLA<br>VINSAI
+                </h1>
+                
+                <div class="mt-3 flex items-center gap-x-4">
+                    <div class="h-px w-12 bg-cyan-400"></div>
+                    <p class="text-2xl md:text-3xl text-zinc-400 font-light">Full Stack MERN Developer</p>
+                </div>
+                
+                <p class="mt-8 max-w-lg text-zinc-400 text-lg leading-relaxed">
+                    I craft exceptional digital experiences using MongoDB, Express, React and Node.js. 
+                    Turning complex problems into simple, beautiful and intuitive solutions.
+                </p>
+                
+                <div class="mt-10 flex items-center gap-x-4">
+                    <button onclick="navigateToSection('projects')" 
+                            class="px-8 py-6 bg-cyan-400 hover:bg-cyan-300 active:scale-95 transition-all text-zinc-950 font-semibold text-lg rounded-3xl flex items-center gap-x-3 shadow-xl shadow-cyan-400/30">
+                        SEE MY WORK
+                        <i class="fa-solid fa-arrow-down"></i>
+                    </button>
+                    
+                    <button onclick="openContactModal()" 
+                            class="px-8 py-6 border border-zinc-300 hover:border-white transition-all font-medium text-lg rounded-3xl flex items-center gap-x-3">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>GET IN TOUCH</span>
+                    </button>
+                </div>
+                
+                <!-- Trust logos -->
+                <div class="mt-16 flex items-center gap-x-8 opacity-70">
+                    <div class="text-xs uppercase tracking-widest text-zinc-500">Previously at</div>
+                    <div class="flex items-center gap-x-6 text-zinc-400">
+                        <i class="fa-brands fa-stripe text-3xl"></i>
+                        <i class="fa-brands fa-airbnb text-3xl"></i>
+                        <div class="text-xl font-medium">Vercel</div>
+                    </div>
+                </div>
+                
+                <!-- Stats -->
+                <div class="mt-12 grid grid-cols-3 gap-8">
+                    <div>
+                        <div class="text-4xl font-semibold text-cyan-300">3</div>
+                        <div class="text-xs tracking-widest text-zinc-500 mt-1">PROJECTS DELIVERED</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-semibold text-cyan-300">Fresher</div>
+                        <div class="text-xs tracking-widest text-zinc-500 mt-1">3-MONTHS EXPERIENCE</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-semibold text-cyan-300">90%</div>
+                        <div class="text-xs tracking-widest text-zinc-500 mt-1">TEAM SATISFACTION</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right visual -->
+            <div class="md:col-span-5 relative">
+                <div class="relative z-10">
+                    <!-- Profile image -->
+                    <div class="aspect-square max-w-md mx-auto relative">
+                        <img id="profile-img" 
+                            src="profile-2.jpg" 
+                            alt="NERELLA VINSAI"
+                            class="w-full h-full object-cover rounded-[4rem] shadow-2xl border-8 border-zinc-900 glow-cyan">
+                        
+                        <!-- Floating badge -->
+                        <div class="absolute -top-4 -right-4 bg-zinc-900 border border-cyan-400 text-cyan-400 text-sm font-medium px-6 py-3 rounded-3xl flex items-center gap-x-3 shadow-2xl">
+                            <i class="fa-solid fa-bolt"></i>
+                            <span>MERN EXPERT</span>
+                        </div>
+                        
+                        <!-- Status -->
+                        <div class="absolute bottom-8 left-8 bg-emerald-400 text-emerald-950 text-xs font-bold px-4 h-7 flex items-center rounded-3xl">
+                            <div class="w-2 h-2 bg-emerald-900 rounded-full mr-2 animate-pulse"></div>
+                            OPEN TO WORK
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Background accent -->
+                <div class="absolute inset-0 bg-gradient-to-br from-cyan-400/10 to-transparent rounded-[5rem] -rotate-6 scale-95 -z-10"></div>
+            </div>
+        </div>
+        
+        <!-- Scroll prompt -->
+        <div class="absolute bottom-10 left-1/2 flex flex-col items-center gap-y-2 text-xs text-zinc-400">
+            <div class="w-px h-12 bg-gradient-to-b from-transparent via-zinc-400 to-transparent"></div>
+            <span class="tracking-widest">SCROLL</span>
+        </div>
+    </header>
+
+    <!-- ABOUT -->
+    <section id="about" class="py-24 border-t border-zinc-800">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="grid md:grid-cols-12 gap-16 items-center">
+                <!-- Text -->
+                <div class="md:col-span-7">
+                    <div class="section-header">
+                        <span class="uppercase text-xs tracking-[2px] font-medium text-cyan-400">CHAPTER 01</span>
+                        <h2 class="text-5xl font-semibold mt-3 leading-none">Hi, I'm Vinsai</h2>
+                    </div>
+                    
+                    <div class="prose prose-invert mt-8 text-zinc-300 max-w-none text-lg">
+                        <p class="leading-relaxed">
+                            With a passion for clean code and pixel-perfect interfaces, I've spent the last 1 year
+                            building full-stack applications that scale. I specialize in the MERN ecosystem but love exploring 
+                            new technologies and architectures.
+                        </p>
+                        <p class="leading-relaxed mt-6">
+                            When I'm not coding, you'll find me contributing to open source, mentoring my co-developers, 
+                            or capturing moments with my camera. I believe great products come from great teams and thoughtful design.
+                        </p>
+                    </div>
+                    
+                    <div class="flex gap-8 mt-12">
+                        <div>
+                            <div class="flex items-center gap-x-4">
+                                <div class="text-6xl font-light text-cyan-200">NV</div>
+                                <div>
+                                    <div class="text-sm text-zinc-400">Based in</div>
+                                    <div class="font-medium">Hyderabad, India</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-x-4">
+                                <div class="text-6xl font-light text-cyan-200">🌎</div>
+                                <div>
+                                    <div class="text-sm text-zinc-400">Timezone</div>
+                                    <div class="font-medium">GMT+5:30</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Fun fact -->
+                    <div class="mt-16 bg-zinc-900 border border-zinc-700 rounded-3xl p-8 max-w-md">
+                        <div class="flex gap-x-5">
+                            <i class="fa-solid fa-lightbulb text-4xl text-amber-300"></i>
+                            <div class="text-sm">
+                                <div class="font-medium text-amber-300">CURRENTLY LEARNING</div>
+                                <div class="mt-2 text-zinc-400">Three.js and Next.js to create immersive web experiences</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right column -->
+                <div class="md:col-span-5">
+                    <div class="bg-zinc-900 rounded-3xl p-8 border border-zinc-700">
+                        <div class="terminal rounded-2xl p-6 text-emerald-300 text-sm leading-relaxed font-light">
+                            <div class="flex items-center gap-x-2 mb-4 text-zinc-500 text-xs">
+                                <div class="w-3 h-3 bg-red-400 rounded-full"></div>
+                                <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                                <div class="w-3 h-3 bg-emerald-400 rounded-full"></div>
+                                <span class="ml-4">Vinsai@portfolio  ~bash</span>
+                            </div>
+                            
+                            <div>&gt; whoami</div>
+                            <div class="text-zinc-100 mt-1">Full-stack engineer •software enthusiast • Coffee addict ☕</div>
+                            
+                            <div class="mt-8">&gt; stack</div>
+                            <div class="text-zinc-100 mt-1">MERN • JavaScript • Tailwind </div>
+                            
+                            <div class="mt-8">&gt; motto</div>
+                            <div class="text-amber-300 mt-1">"Code is poetry. Deploy is magic."</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Signature -->
+                    <div class="mt-8 flex items-center gap-x-6 text-xs">
+                        <div class="h-px flex-1 bg-gradient-to-r from-transparent to-zinc-600"></div>
+                        <div class="flex items-center gap-x-3 text-zinc-400">
+                            <span>SIGNED</span> 
+                            <span class="logo-font text-xl text-white">NV</span>
+                        </div>
+                        <div class="h-px flex-1 bg-gradient-to-l from-transparent to-zinc-600"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="py-24 bg-zinc-900">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="flex justify-between items-baseline mb-12">
+                <div>
+                    <span class="uppercase text-xs tracking-[2px] font-medium text-cyan-400">CHAPTER 02</span>
+                    <h2 class="text-5xl font-semibold mt-2">My Toolkit</h2>
+                </div>
+                <a href="#" onclick="navigateToSection('projects')" 
+                   class="text-sm flex items-center gap-x-2 group">
+                    <span class="group-hover:underline">See how I use them</span>
+                    <i class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1"></i>
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Skill 1 -->
+                <div class="bg-zinc-800 rounded-3xl p-6 hover:bg-zinc-700 transition-colors">
+                    <div class="flex justify-between">
+                        <div class="w-12 h-12 bg-green-500/10 text-green-400 rounded-2xl flex items-center justify-center text-3xl">🍃</div>
+                        <div class="text-xs font-mono text-right">
+                            <div class="text-emerald-400">70%</div>
+                            <div class="text-zinc-500">proficiency</div>
+                        </div>
+                    </div>
+                    <div class="mt-8">
+                        <div class="font-semibold text-xl">MongoDB</div>
+                        <div class="text-zinc-400 text-sm mt-1">NoSQL databases, aggregation pipelines, Atlas</div>
+                    </div>
+                    <div class="mt-8 h-1.5 bg-zinc-700 rounded-3xl overflow-hidden">
+                        <div class="skill-bar w-[70%]"></div>
+                    </div>
+                </div>
+                
+                <!-- Skill 2 -->
+                <div class="bg-zinc-800 rounded-3xl p-6 hover:bg-zinc-700 transition-colors">
+                    <div class="flex justify-between">
+                        <div class="w-12 h-12 bg-orange-500/10 text-orange-400 rounded-2xl flex items-center justify-center text-3xl">
+                            <i class="fa-brands fa-node-js"></i>
+                        </div>
+                        <div class="text-xs font-mono text-right">
+                            <div class="text-emerald-400">75%</div>
+                            <div class="text-zinc-500">proficiency</div>
+                        </div>
+                    </div>
+                    <div class="mt-8">
+                        <div class="font-semibold text-xl">Node.js + Express</div>
+                        <div class="text-zinc-400 text-sm mt-1">REST APIs, authentication, authorization</div>
+                    </div>
+                    <div class="mt-8 h-1.5 bg-zinc-700 rounded-3xl overflow-hidden">
+                        <div class="skill-bar w-[75%]"></div>
+                    </div>
+                </div>
+                
+                <!-- Skill 3 -->
+                <div class="bg-zinc-800 rounded-3xl p-6 hover:bg-zinc-700 transition-colors">
+                    <div class="flex justify-between">
+                        <div class="w-12 h-12 bg-sky-500/10 text-sky-400 rounded-2xl flex items-center justify-center text-3xl">⚛️</div>
+                        <div class="text-xs font-mono text-right">
+                            <div class="text-emerald-400">70%</div>
+                            <div class="text-zinc-500">proficiency</div>
+                        </div>
+                    </div>
+                    <div class="mt-8">
+                        <div class="font-semibold text-xl">React</div>
+                        <div class="text-zinc-400 text-sm mt-1">Hooks, Context, Next.js, Redux</div>
+                    </div>
+                    <div class="mt-8 h-1.5 bg-zinc-700 rounded-3xl overflow-hidden">
+                        <div class="skill-bar w-[70%]"></div>
+                    </div>
+                </div>
+                
+                <!-- Skill 4 -->
+                <div class="bg-zinc-800 rounded-3xl p-6 hover:bg-zinc-700 transition-colors">
+                    <div class="flex justify-between">
+                        <div class="w-12 h-12 bg-blue-500/10 text-blue-400 rounded-2xl flex items-center justify-center text-3xl"> ⚡</div>
+                        <div class="text-xs font-mono text-right">
+                            <div class="text-emerald-400">80%</div>
+                            <div class="text-zinc-500">proficiency</div>
+                        </div>
+                    </div>
+                    <div class="mt-8">
+                        <div class="font-semibold text-xl">JavaScript  </div>
+                        <div class="text-zinc-400 text-sm mt-1"> Web page interactivity, DOM manipulation,Frontend web development</div>
+                    </div>
+                    <div class="mt-8 h-1.5 bg-zinc-700 rounded-3xl overflow-hidden">
+                        <div class="skill-bar w-[80%]"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Additional skills tags -->
+            <div class="mt-20">
+                <p class="text-zinc-400 text-sm mb-6">OTHER TECHNOLOGIES I WORK WITH</p>
+                <div class="flex flex-wrap gap-3">
+                    <div onclick="this.classList.toggle('bg-cyan-400');this.classList.toggle('text-zinc-900')" 
+                         class="cursor-pointer transition-all text-sm border border-zinc-600 hover:border-cyan-300 px-5 py-3 rounded-3xl">HTML 5</div>
+                    <div onclick="this.classList.toggle('bg-cyan-400');this.classList.toggle('text-zinc-900')" 
+                         class="cursor-pointer transition-all text-sm border border-zinc-600 hover:border-cyan-300 px-5 py-3 rounded-3xl">Css 3</div>
+                    <div onclick="this.classList.toggle('bg-cyan-400');this.classList.toggle('text-zinc-900')" 
+                         class="cursor-pointer transition-all text-sm border border-zinc-600 hover:border-cyan-300 px-5 py-3 rounded-3xl">TypeScript</div>
+                    <div onclick="this.classList.toggle('bg-cyan-400');this.classList.toggle('text-zinc-900')" 
+                         class="cursor-pointer transition-all text-sm border border-zinc-600 hover:border-cyan-300 px-5 py-3 rounded-3xl">Tailwind CSS</div>
+                    <div onclick="this.classList.toggle('bg-cyan-400');this.classList.toggle('text-zinc-900')" 
+                         class="cursor-pointer transition-all text-sm border border-zinc-600 hover:border-cyan-300 px-5 py-3 rounded-3xl">Next.js</div>
+                    <div onclick="this.classList.toggle('bg-cyan-400');this.classList.toggle('text-zinc-900')" 
+                         class="cursor-pointer transition-all text-sm border border-zinc-600 hover:border-cyan-300 px-5 py-3 rounded-3xl">Socket.io</div>
+                    <div onclick="this.classList.toggle('bg-cyan-400');this.classList.toggle('text-zinc-900')" 
+                         class="cursor-pointer transition-all text-sm border border-zinc-600 hover:border-cyan-300 px-5 py-3 rounded-3xl">MySQL</div>
+                    <div onclick="this.classList.toggle('bg-cyan-400');this.classList.toggle('text-zinc-900')" 
+                         class="cursor-pointer transition-all text-sm border border-zinc-600 hover:border-cyan-300 px-5 py-3 rounded-3xl">Redis</div>
+                    <div onclick="this.classList.toggle('bg-cyan-400');this.classList.toggle('text-zinc-900')" 
+                         class="cursor-pointer transition-all text-sm border border-zinc-600 hover:border-cyan-300 px-5 py-3 rounded-3xl">Jest</div>
+                    <div onclick="this.classList.toggle('bg-cyan-400');this.classList.toggle('text-zinc-900')" 
+                         class="cursor-pointer transition-all text-sm border border-zinc-600 hover:border-cyan-300 px-5 py-3 rounded-3xl">GitHub Actions</div>
+                    <div onclick="this.classList.toggle('bg-cyan-400');this.classList.toggle('text-zinc-900')" 
+                         class="cursor-pointer transition-all text-sm border border-zinc-600 hover:border-cyan-300 px-5 py-3 rounded-3xl">BootStrap</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="py-24">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="flex justify-between items-end mb-12">
+                <div class="section-header">
+                    <span class="uppercase text-xs tracking-[2px] font-medium text-cyan-400">CHAPTER 03</span>
+                    <h2 class="text-5xl font-semibold mt-2">Featured Projects</h2>
+                </div>
+                <button onclick="window.open('https://github.com/Vinsai2003?tab=repositories', '_blank')" 
+                        class="flex items-center gap-x-3 group text-sm">
+                    <span class="font-medium">All projects on GitHub</span>
+                    <span class="block w-8 h-px bg-current group-hover:w-12 transition-all"></span>
+                </button>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div onclick="showProjectModal(1)" class="project-card bg-zinc-900 border border-zinc-700 rounded-3xl overflow-hidden cursor-pointer">
+                    <div class="h-64 bg-zinc-800 relative">
+                        <img src="https://picsum.photos/id/201/800/600" alt="Project" 
+                             class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-black/70 text-[10px] font-mono tracking-widest px-3 py-1 rounded-3xl">2024</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-x-2">
+                            <span class="text-xs bg-emerald-900 text-emerald-300 px-3 py-1 rounded-3xl">MERN</span>
+                            <span class="text-xs bg-amber-900 text-amber-300 px-3 py-1 rounded-3xl">STRIPE</span>
+                        </div>
+                        <h3 class="font-semibold text-2xl mt-4">NovaShop</h3>
+                        <p class="text-zinc-400 text-sm line-clamp-2 mt-2">
+                            Modern e-commerce platform with real-time inventory, advanced filtering and seamless checkout.
+                        </p>
+                        <div class="flex justify-between items-center mt-8">
+                            <div class="flex -space-x-4">
+                                <div class="w-6 h-6 bg-cyan-300 rounded-2xl border-2 border-zinc-900 flex items-center justify-center text-[10px]">R</div>
+                                <div class="w-6 h-6 bg-violet-300 rounded-2xl border-2 border-zinc-900 flex items-center justify-center text-[10px]">T</div>
+                            </div>
+                            <button class="text-cyan-400 text-xs flex items-center gap-x-1 hover:gap-x-2 transition-all">
+                                VIEW CASE STUDY 
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div onclick="showProjectModal(2)" class="project-card bg-zinc-900 border border-zinc-700 rounded-3xl overflow-hidden cursor-pointer">
+                    <div class="h-64 bg-zinc-800 relative">
+                        <img src="https://picsum.photos/id/251/800/600" alt="Project" 
+                             class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-black/70 text-[10px] font-mono tracking-widest px-3 py-1 rounded-3xl">2023</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-x-2">
+                            <span class="text-xs bg-sky-900 text-sky-300 px-3 py-1 rounded-3xl">REALTIME</span>
+                            <span class="text-xs bg-rose-900 text-rose-300 px-3 py-1 rounded-3xl">SOCKET.IO</span>
+                        </div>
+                        <h3 class="font-semibold text-2xl mt-4">ConnectSphere</h3>
+                        <p class="text-zinc-400 text-sm line-clamp-2 mt-2">
+                            Video-first collaboration platform for remote teams with live cursors and instant messaging.
+                        </p>
+                        <div class="flex justify-between items-center mt-8">
+                            <div class="text-xs text-zinc-400">Featured in Product Hunt</div>
+                            <button class="text-cyan-400 text-xs flex items-center gap-x-1 hover:gap-x-2 transition-all">
+                                VIEW CASE STUDY 
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div onclick="showProjectModal(3)" class="project-card bg-zinc-900 border border-zinc-700 rounded-3xl overflow-hidden cursor-pointer">
+                    <div class="h-64 bg-zinc-800 relative">
+                        <img src="https://picsum.photos/id/870/800/600" alt="Project" 
+                             class="w-full h-full object-cover">
+                        <div class="absolute top-4 right-4 bg-black/70 text-[10px] font-mono tracking-widest px-3 py-1 rounded-3xl">2024</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-x-2">
+                            <span class="text-xs bg-indigo-900 text-indigo-300 px-3 py-1 rounded-3xl">DASHBOARD</span>
+                        </div>
+                        <h3 class="font-semibold text-2xl mt-4">InsightFlow</h3>
+                        <p class="text-zinc-400 text-sm line-clamp-2 mt-2">
+                            Beautiful analytics dashboard built for SaaS companies to track KPIs in real-time.
+                        </p>
+                        <div class="flex justify-between items-center mt-8">
+                            <div class="flex text-xs items-center gap-x-4 text-zinc-400">
+                                <div>Next.js</div>
+                                <div>Recharts</div>
+                            </div>
+                            <button class="text-cyan-400 text-xs flex items-center gap-x-1 hover:gap-x-2 transition-all">
+                                VIEW CASE STUDY 
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="py-24 bg-zinc-900">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="grid grid-cols-12 gap-10">
+                <div class="col-span-12 lg:col-span-4">
+                    <span class="uppercase text-xs tracking-[2px] font-medium text-cyan-400">CHAPTER 04</span>
+                    <h2 class="text-5xl font-semibold mt-3 leading-none">My Journey</h2>
+                    <p class="text-zinc-400 mt-6">just now started From startup chaos will see where it goes .</p><!--to enterprise systems, I've had the privilege to work with incredible teams-->
+                    
+                    <div class="hidden lg:flex mt-16 border border-dashed border-zinc-600 rounded-3xl p-6">
+                        <div class="text-xs">
+                            <div class="bg-zinc-800 text-cyan-300 px-4 py-3 rounded-3xl">2026</div>
+                            <div class="my-8 text-center text-zinc-500">• • •</div>
+                            <div>2024</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Timeline -->
+                <div class="col-span-12 lg:col-span-8">
+                    <div class="space-y-16">
+                        <!-- Exp 1 -->
+                        <div class="flex gap-6">
+                            <div class="w-28 text-right flex-shrink-0">
+                                <div class="text-cyan-400 text-sm font-medium">March 2026 - PRESENT</div>
+                                <div class="text-xs text-zinc-500 mt-1">Web Developer Intern</div>
+                            </div>
+                            <div class="flex-1 border-l border-cyan-400 pl-8">
+                                <div class="flex items-center gap-x-4">
+                                    <div class="w-9 h-9 bg-white text-zinc-900 rounded-2xl flex items-center justify-center text-xl"><img src="https://www.thedevelopersarena.com/assets/logo/logo.png" alt="The Developers Arena " class="w-full h-full object-cover rounded-2xl">
+
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold">Web Developer Intern</div>
+                                        <div class="text-xs text-zinc-400">The Developers Arena • Remote</div>
+                                    </div>
+                                </div>
+                                <ul class="mt-6 space-y-4 text-sm text-zinc-400">
+                                    <li class="flex gap-x-3"><span class="text-cyan-400">→</span> Contributed to the development of a web application used by internal teams</li>
+                                    <li class="flex gap-x-3"><span class="text-cyan-400">→</span> Implemented form validation and improved user interaction across multiple pages</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Exp 2 -->
+                        <!-- <div class="flex gap-6">
+                            <div class="w-28 text-right flex-shrink-0">
+                                <div class="text-cyan-400 text-sm font-medium">MAR 2022 - DEC 2023</div>
+                                <div class="text-xs text-zinc-500 mt-1">FULL-TIME</div>
+                            </div>
+                            <div class="flex-1 border-l border-zinc-700 pl-8">
+                                <div class="flex items-center gap-x-4">
+                                    <div class="w-9 h-9 bg-gradient-to-br from-purple-400 to-pink-400 text-white rounded-2xl flex items-center justify-center text-xl">P</div>
+                                    <div>
+                                        <div class="font-semibold">MERN Developer</div>
+                                        <div class="text-xs text-zinc-400">Pinnacle Labs • Austin, TX</div>
+                                    </div>
+                                </div>
+                                <ul class="mt-6 space-y-4 text-sm text-zinc-400">
+                                    <li class="flex gap-x-3"><span class="text-cyan-400">→</span> Developed the core SaaS product from 0 to 1</li>
+                                    <li class="flex gap-x-3"><span class="text-cyan-400">→</span> Reduced load time by 65% with optimized queries</li>
+                                </ul>
+                            </div>
+                        </div> -->
+                        
+                        <!-- Exp 3 -->
+                        <!-- <div class="flex gap-6">
+                            <div class="w-28 text-right flex-shrink-0">
+                                <div class="text-cyan-400 text-sm font-medium">JUN 2021 - FEB 2022</div>
+                                <div class="text-xs text-zinc-500 mt-1">INTERNSHIP</div>
+                            </div>
+                            <div class="flex-1 border-l border-zinc-700 pl-8">
+                                <div class="flex items-center gap-x-4">
+                                    <div class="w-9 h-9 bg-zinc-700 text-white rounded-2xl flex items-center justify-center text-2xl">V</div>
+                                    <div>
+                                        <div class="font-semibold">Software Engineer Intern</div>
+                                        <div class="text-xs text-zinc-400">Vividly Inc.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="py-20 border-t border-b border-zinc-800">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="flex flex-col md:flex-row gap-8 md:items-end">
+                <div class="md:w-80">
+                    <h2 class="text-4xl font-medium">What clients say</h2>
+                </div>
+                
+                <div id="testimonial-slider" class="flex-1 overflow-hidden">
+                    <div id="testimonial-track" class="flex transition-transform duration-700">
+                        <!-- Testimonial 1 -->
+                        <div class="min-w-full md:min-w-1/2 lg:min-w-1/3 px-4">
+                            <div class="bg-zinc-900 p-8 rounded-3xl">
+                                <div class="italic text-zinc-300">"Working with Vinsai was a great experience. Even as a fresher, he showed strong dedication to writing clean code and building responsive web interfaces."</div>
+                                <div class="mt-8 flex items-center gap-x-4">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQJd4nE7XMqRb3GagdJlDj1X4GdqwbXAPe_Q&s" alt="" class="w-9 h-9 rounded-2xl object-cover">
+                                    <div>
+                                        <div class="text-sm font-medium">praveen Reddy</div>
+                                        <div class="text-xs text-zinc-400"><!--CEO, Lumora--></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Testimonial 2 -->
+                        <div class="min-w-full md:min-w-1/2 lg:min-w-1/3 px-4">
+                            <div class="bg-zinc-900 p-8 rounded-3xl">
+                                <div class="italic text-zinc-300">"Vinsai is a dedicated web developer who consistently delivers clean, well-structured code. As a fresher, he quickly adapts to new technologies and focuses on building user-friendly interfaces."</div>
+                                <div class="mt-8 flex items-center gap-x-4">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdXXmuW5Y1HP7oVvZ1T4MrQfY0mMUujciThA&s" alt="" class="w-9 h-9 rounded-2xl object-cover">
+                                    <div>
+                                        <div class="text-sm font-medium">Mahesh </div>
+                                        <div class="text-xs text-zinc-400">CTO, Finova</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="py-24">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="grid md:grid-cols-12 gap-x-16">
+                <div class="md:col-span-5">
+                    <span class="px-4 py-2 bg-cyan-400 text-zinc-950 text-xs font-bold rounded-3xl">CHAPTER 05 • FINAL</span>
+                    <h2 class="text-6xl font-semibold leading-none mt-6">Let's create<br>something together</h2>
+                    <p class="mt-6 text-zinc-400">Have an exciting project in mind? I'm currently lokking for opportunities.</p>
+                    
+                    <div class="mt-16">
+                        <a href="mailto:hello@nerellavinsai.com" class="flex items-center group">
+                            <div class="text-4xl font-light text-zinc-300 group-hover:text-white transition-colors">hello@nerellavinsai.com</div>
+                        </a>
+                        <div class="h-px bg-zinc-700 my-8"></div>
+                        <div class="flex gap-x-8 text-sm">
+                            <div class="flex flex-col gap-y-6">
+                                <a href="https://www.instagram.com/_vinsai_?igsh=NHNrMHJsd3Rrd2N6" class="hover:text-cyan-400 transition-colors">Instagram</a>
+                                <a href="https://x.com/vinsai_nerella" class="hover:text-cyan-400 transition-colors">X</a>
+                            </div>
+                            <div class="flex flex-col gap-y-6">
+                                <a href="https://www.linkedin.com/in/vinsai-nerella/" class="hover:text-cyan-400 transition-colors">LinkedIn</a>
+                                <a href="#" class="hover:text-cyan-400 transition-colors">Facebook</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact form -->
+                <div class="md:col-span-7 mt-12 md:mt-0">
+                    <form id="contact-form" onsubmit="handleSubmit(event)" class="space-y-8">
+                        <div class="grid grid-cols-2 gap-8">
+                            <div>
+                                <label class="block text-xs text-zinc-400 mb-2">FIRST NAME</label>
+                                <input id="fname" type="text" name="fname"
+                                       class="w-full bg-transparent border border-zinc-700 focus:border-cyan-400 transition-colors rounded-3xl px-6 py-7 outline-none text-lg"
+                                       placeholder="John">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-zinc-400 mb-2">LAST NAME</label>
+                                <input id="lname" type="text" name="lname"
+                                       class="w-full bg-transparent border border-zinc-700 focus:border-cyan-400 transition-colors rounded-3xl px-6 py-7 outline-none text-lg"
+                                       placeholder="Reddy">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-xs text-zinc-400 mb-2">EMAIL ADDRESS</label>
+                            <input id="email" type="email" name="email"
+                                   class="w-full bg-transparent border border-zinc-700 focus:border-cyan-400 transition-colors rounded-3xl px-6 py-7 outline-none text-lg"
+                                   placeholder="you@email.com">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-xs text-zinc-400 mb-2">PROJECT BRIEF</label>
+                            <textarea id="brief" name="brief" rows="6"
+                                      class="w-full bg-transparent border border-zinc-700 focus:border-cyan-400 transition-colors rounded-3xl px-6 py-7 outline-none text-lg resize-none"
+                                      placeholder="Tell me about your project..."></textarea>
+                        </div>
+                        
+                        <button type="submit"
+                                class="w-full py-8 bg-white text-zinc-900 hover:bg-amber-300 transition-colors rounded-3xl text-xl font-medium flex items-center justify-center gap-x-4">
+                            SEND MESSAGE
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-8">
+        <div class="max-w-screen-2xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-y-6 text-xs">
+            <div class="flex items-center gap-x-6">
+                <div class="logo-font text-3xl">NV</div>
+                <div class="text-zinc-500">© 2026 Nerella Vinsai. All rights reserved.</div>
+            </div>
+            
+            <div class="flex items-center gap-x-8 text-zinc-400">
+                <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                <a href="#" class="hover:text-white transition-colors">Legal</a>
+                <a href="#" onclick="navigateToSection('about')" class="hover:text-white transition-colors">Back to top ↑</a>
+            </div>
+            
+            <div class="text-zinc-600 text-[10px] font-mono">v24.3.1</div>
+        </div>
+    </footer>
+
+    <!-- PROJECT MODAL -->
+    <div id="project-modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-[9999]">
+        <div onclick="event.stopImmediatePropagation()" 
+             class="max-w-2xl w-full mx-4 bg-zinc-900 rounded-3xl overflow-hidden">
+            <!-- Modal header -->
+            <div class="px-8 pt-8 pb-4 border-b border-zinc-700 flex items-center justify-between">
+                <div id="modal-title" class="font-semibold text-3xl">Project Title</div>
+                <button onclick="closeProjectModal()" 
+                        class="w-10 h-10 flex items-center justify-center text-3xl leading-none text-zinc-400 hover:text-white">×</button>
+            </div>
+            
+            <div class="p-8" id="modal-content">
+                <!-- Dynamic content populated by JS -->
+            </div>
+            
+            <div class="p-8 border-t border-zinc-700 flex items-center justify-end gap-x-4">
+                <button onclick="closeProjectModal()" 
+                        class="px-8 py-4 text-sm border border-zinc-600 hover:bg-zinc-800 transition-colors rounded-3xl">CLOSE</button>
+                <button onclick="alert('Pretend link opened! 🎉');closeProjectModal()" 
+                        class="px-8 py-4 bg-cyan-400 text-zinc-950 text-sm font-semibold rounded-3xl">VISIT LIVE SITE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT SUCCESS MODAL -->
+    <div id="success-modal" class="hidden fixed inset-0 bg-black/70 z-[99999] flex items-center justify-center">
+        <div class="max-w-xs w-full bg-zinc-900 rounded-3xl p-10 text-center">
+            <i class="fa-solid fa-check-circle text-6xl text-emerald-400"></i>
+            <div class="mt-6 text-2xl font-medium">Message received!</div>
+            <div class="mt-3 text-zinc-400 text-sm">Thank you. I'll get back to you within 24 hours.</div>
+            <button onclick="closeSuccessModal()" 
+                    class="mt-10 w-full py-5 bg-emerald-400 text-zinc-950 rounded-3xl font-medium">COOL, THANKS</button>
+        </div>
+    </div>
+
+    <script>
+        // Tailwind script already included via CDN
+        
+        function initializeTailwind() {
+            // Nothing extra needed
+        }
+        
+        // Mobile menu
+        let mobileOpen = false;
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            
+            mobileOpen = !mobileOpen;
+            
+            if (mobileOpen) {
+                menu.classList.remove('hidden');
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                menu.classList.add('hidden');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-xmark');
+            }
+        }
+        
+        // Smooth scroll
+        function navigateToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                const navHeight = 80;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.scrollY - navHeight;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+        
+        // Fake resume download
+        function downloadResume() {
+            const link = document.createElement('a');
+            link.href = '#';
+            link.download = 'Nerella-Vinsai_Resume.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Show toast
+            showToast('Resume downloaded (demo)');
+        }
+        
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.style.position = 'fixed';
+            toast.style.bottom = '30px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.backgroundColor = '#111827';
+            toast.style.color = '#67e8f9';
+            toast.style.padding = '14px 28px';
+            toast.style.borderRadius = '9999px';
+            toast.style.boxShadow = '0 10px 15px -3px rgb(0 0 0)';
+            toast.style.zIndex = '99999';
+            toast.style.whiteSpace = 'nowrap';
+            toast.style.fontSize = '14px';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 1, 1)';
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(-50%) translateY(20px)';
+                
+                setTimeout(() => document.body.removeChild(toast), 400);
+            }, 2800);
+        }
+        
+        // Project modal
+        let currentProject = null;
+        
+        function showProjectModal(id) {
+            currentProject = id;
+            const modal = document.getElementById('project-modal');
+            const content = document.getElementById('modal-content');
+            const title = document.getElementById('modal-title');
+            
+            if (id === 1) {
+                title.textContent = 'NovaShop';
+                content.innerHTML = `
+                    <img src="https://picsum.photos/id/201/1200/600" class="w-full h-72 object-cover rounded-2xl" alt="">
+                    <div class="flex gap-x-6 my-8">
+                        <div class="flex-1">
+                            <div class="text-xs text-zinc-400">STACK</div>
+                            <div class="flex flex-wrap gap-2 mt-4">
+                                <div class="bg-zinc-800 text-xs px-4 py-2 rounded-3xl">React</div>
+                                <div class="bg-zinc-800 text-xs px-4 py-2 rounded-3xl">Node.js</div>
+                                <div class="bg-zinc-800 text-xs px-4 py-2 rounded-3xl">MongoDB</div>
+                                <div class="bg-zinc-800 text-xs px-4 py-2 rounded-3xl">Stripe</div>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-xs text-zinc-400">ROLE</div>
+                            <div class="mt-4 text-zinc-300">Full-stack development, design system creation, API architecture</div>
+                        </div>
+                    </div>
+                    <div class="text-sm text-zinc-300">
+                        NovaShop is a fully responsive e-commerce solution that handles thousands of orders daily. 
+                        It features an intelligent recommendation engine, beautiful product pages, and a lightning fast checkout experience.
+                    </div>
+                `;
+            } else if (id === 2) {
+                title.textContent = 'ConnectSphere';
+                content.innerHTML = `
+                    <img src="https://picsum.photos/id/251/1200/600" class="w-full h-72 object-cover rounded-2xl" alt="">
+                    <div class="grid grid-cols-2 gap-6 mt-8">
+                        <div>
+                            <div class="uppercase text-[10px] tracking-widest">Tech</div>
+                            <div class="mt-3 text-cyan-300 text-sm">Socket.io • React • Express • MongoDB</div>
+                        </div>
+                        <div>
+                            <div class="uppercase text-[10px] tracking-widest">Outcome</div>
+                            <div class="mt-3 text-emerald-300 text-sm">Featured on Product Hunt #4</div>
+                        </div>
+                    </div>
+                    <p class="mt-8 text-zinc-300 text-sm">A delightful video collaboration experience for distributed teams. I architected the real-time video and chat infrastructure.</p>
+                `;
+            } else if (id === 3) {
+                title.textContent = 'InsightFlow';
+                content.innerHTML = `
+                    <div class="bg-gradient-to-br from-violet-500 to-fuchsia-500 h-72 rounded-3xl flex items-center justify-center text-white text-7xl font-light">📈</div>
+                    <div class="mt-8 flex items-center justify-between text-xs">
+                        <div class="flex items-center gap-x-8">
+                            <div>REACT</div>
+                            <div>CHART.JS</div>
+                            <div>NODE</div>
+                        </div>
+                        <div class="text-emerald-400">LIVE DEMO AVAILABLE</div>
+                    </div>
+                `;
+            }
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            // Disable background scroll
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeProjectModal() {
+            const modal = document.getElementById('project-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = 'visible';
+        }
+        
+        // Contact form
+        // function handleSubmit(e) {
+        //     e.preventDefault();
+            
+        //     const fname = document.getElementById('fname').value;
+            
+        //     if (!fname) {
+        //         showToast('Please enter your name');
+        //         return;
+        //     }
+            
+        //     // Simulate network request
+        //     setTimeout(() => {
+        //         closeContactForm();
+        //         showSuccessModal();
+        //     }, 900);
+        // }
+
+        function handleSubmit(event){
+                event.preventDefault();
+
+                emailjs.sendForm(
+                "service_vvff1tz",
+                "template_j2pym5a",
+                "#contact-form"
+            ).then(function(){
+                alert("Message sent successfully!");
+            }, function(error){
+                alert("Failed to send message");
+                console.log(error);
+            });
+        }
+        
+        function closeContactForm() {
+            // Clear form
+            document.getElementById('contact-form').reset();
+        }
+        
+        function showSuccessModal() {
+            const modal = document.getElementById('success-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+        
+        function closeSuccessModal() {
+            const modal = document.getElementById('success-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+        
+        function openContactModal() {
+            navigateToSection('contact');
+        }
+        
+        // Keyboard shortcuts
+        function handleKeyboard(e) {
+            if (e.metaKey && e.key === "k") {
+                e.preventDefault();
+                // Could open command palette in real app
+                showToast('Command palette would open here ⌘');
+            }
+        }
+        
+        // Scroll navbar effect
+        function handleScroll() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 80) {
+                navbar.style.backgroundColor = 'rgb(9 9 11 / 0.95)';
+                navbar.style.backdropFilter = 'blur(12px)';
+            } else {
+                navbar.style.backgroundColor = 'rgb(9 9 11)';
+                navbar.style.backdropFilter = 'none';
+            }
+        }
+        
+        // Initialize everything
+        function initialize() {
+            // Tailwind ready
+            initializeTailwind();
+            
+            // Keyboard listener
+            document.addEventListener('keydown', handleKeyboard);
+            
+            // Scroll listener for navbar
+            window.addEventListener('scroll', handleScroll);
+            
+            // Close modals when escape is pressed
+            document.addEventListener('keydown', function(e) {
+                if (e.key === "Escape") {
+                    const projectModal = document.getElementById('project-modal');
+                    const successModal = document.getElementById('success-modal');
+                    
+                    if (!projectModal.classList.contains('hidden')) closeProjectModal();
+                    else if (!successModal.classList.contains('hidden')) closeSuccessModal();
+                }
+            });
+            
+            // Click anywhere on project modal background to close
+            const projectModalEl = document.getElementById('project-modal');
+            projectModalEl.addEventListener('click', function() {
+                closeProjectModal();
+            });
+            
+            // Make skill bars animate on scroll
+            function animateSkills() {
+                const bars = document.querySelectorAll('.skill-bar');
+                bars.forEach(bar => {
+                    const originalWidth = bar.style.width;
+                    bar.style.width = '0%';
+                    
+                    setTimeout(() => {
+                        bar.style.width = originalWidth;
+                    }, 1200);
+                });
+            }
+            
+            // Trigger skill animation when scrolled into view
+            const skillsSection = document.getElementById('skills');
+            let skillsAnimated = false;
+            
+            window.addEventListener('scroll', () => {
+                if (!skillsAnimated && window.scrollY > skillsSection.offsetTop - 400) {
+                    skillsAnimated = true;
+                    animateSkills();
+                }
+            });
+            
+            // Random profile image cycle (demo)
+            const profileImages = [
+                "profile-2.jpg", // Default profile picture
+                "profile-3.jpeg",
+                "profile-4.jpeg"
+            ];
+            
+            let imageIndex = 0;
+            const profileImg = document.getElementById('profile-img');
+            
+            setInterval(() => {
+                imageIndex = (imageIndex + 1) % profileImages.length;
+                profileImg.style.opacity = 0;
+                
+                setTimeout(() => {
+                    profileImg.src = profileImages[imageIndex];
+                    profileImg.style.opacity = 1;
+                }, 400);
+            }, 8000);
+            
+            // Initial toast
+            setTimeout(() => {
+                showToast('Welcome to my portfolio 👾');
+            }, 2100);
+            
+            console.log('%c✅ Portfolio ready. Built as a single-file demo.', 'color:#67e8f9; font-family:monospace');
+        }
+        
+        // Boot app
+        window.onload = initialize;
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+
+(function(){
+  emailjs.init("MabSMnV3dVd6AFzny");
+})();
+
+document
+.getElementById("contact-form")
+.addEventListener("submit", function(e){
+
+  e.preventDefault();
+
+  emailjs.sendForm(
+    "service_vvff1tz",
+    "template_j2pym5a",
+    this
+  )
+  .then(function(){
+      alert("Message sent successfully");
+  })
+  .catch(function(error){
+      alert("Message failed to send");
+  });
+
+});
+
+</script>
+</body>
+</html>
