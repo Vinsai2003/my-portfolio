@@ -108,7 +108,7 @@
                 </div>
                 
                 <div class="flex items-center gap-x-4">
-                    <a href="VINSAI-RESUME.pdf" 
+                    <a href="VINSAI_RESUME.pdf" 
                        onclick="downloadResume()"
                        class="hidden sm:flex items-center gap-x-2 px-5 py-2.5 text-sm font-semibold border border-zinc-700 hover:border-cyan-400 rounded-3xl transition-colors">
                         <i class="fa-solid fa-download text-xs"></i>
@@ -864,8 +864,8 @@
         // Fake resume download
         function downloadResume() {
             const link = document.createElement('a');
-            link.href = 'VINSAI-RESUME.pdf';
-            link.download = 'VINSAI-RESUME.pdf';
+            link.href = 'VINSAI_RESUME.pdf';
+            link.download = 'VINSAI_RESUME.pdf';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
